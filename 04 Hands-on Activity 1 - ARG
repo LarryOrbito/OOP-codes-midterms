@@ -1,0 +1,80 @@
+// Larry James Orbito 
+// BSIT 307
+import java.util.Scanner;
+
+class BloodData {
+    private String bloodType;
+    private String rhFactor;
+
+    public BloodData() {
+        bloodType = "O";
+        rhFactor = "+";
+    }
+
+    public BloodData(String bt, String rh) {
+        bloodType = bt;
+        rhFactor = rh;
+    }
+
+    public void setBloodType(String bt) {
+        this.bloodType = bt;
+    }
+
+    public void setRhFactor(String rh) {
+        this.rhFactor = rh;
+    }
+
+    public String getBloodType() {
+        return bloodType;
+    }
+
+    public String getRhFactor() {
+        return rhFactor;
+    }
+
+    public void display() {
+        System.out.println(getBloodType() + getRhFactor() + " is added to the blood bank.");
+    }
+}
+
+public class RunBloodData {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        boolean continueInput = true;
+
+        while (continueInput) {
+            System.out.print("Enter blood type of a patient (A, B, AB, O): ");
+            String input1 = sc.nextLine().toUpperCase();
+
+            System.out.print("Enter the Rhesus factor (+ or -): ");
+            String input2 = sc.nextLine();
+
+            BloodData bd;
+
+            if (input1.equals("") && input2.equals("")) {
+                bd = new BloodData();
+            } else if (isValidBloodType(input1) && isValidRhFactor(input2)) {
+                bd = new BloodData(input1, input2);
+            } else {
+                System.out.println("Invalid input! Please enter a valid blood type and Rhesus factor.");
+                continue;
+            }
+
+            bd.display();
+
+            System.out.print("Do you want to input another patient's blood data? (yes/no): ");
+            String choice = sc.nextLine().toLowerCase();
+            if (choice.equals("no")) {
+                continueInput = false;
+            }
+        }
+    }
+
+    public static boolean isValidBloodType(String bloodType) {
+        return bloodType.equals("A") || bloodType.equals("B") || bloodType.equals("AB") || bloodType.equals("O");
+    }
+
+    public static boolean isValidRhFactor(String rhFactor) {
+        return rhFactor.equals("+") || rhFactor.equals("-");
+    }
+}
