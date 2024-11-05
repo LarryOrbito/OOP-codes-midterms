@@ -1,0 +1,106 @@
+import java.util.Scanner;
+
+class Person {
+    protected String name;
+    protected String contactNum;
+
+    public void inputDetails(Scanner scanner) {
+        System.out.print("Type name: ");
+        name = scanner.nextLine();
+        System.out.print("Type contact number: ");
+        contactNum = scanner.nextLine();
+    }
+
+    public void displayDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("Contact Number: " + contactNum);
+    }
+}
+
+class Employee extends Person {
+    private double salary;
+    private String department;
+
+    public void inputDetails(Scanner scanner) {
+        super.inputDetails(scanner);
+        System.out.print("Type monthly salary: ");
+        salary = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.print("Type department: ");
+        department = scanner.nextLine();
+    }
+
+    public void displayDetails() {
+        super.displayDetails();
+        System.out.println("Salary: " + salary);
+        System.out.println("Department: " + department);
+    }
+}
+
+class Faculty extends Employee {
+    private boolean isRegular;
+
+    public void inputDetails(Scanner scanner) {
+        super.inputDetails(scanner);
+        System.out.print("Is the faculty regular/tenured? (Y/N): ");
+        isRegular = scanner.nextLine().equalsIgnoreCase("Y");
+    }
+
+    public void displayDetails() {
+        super.displayDetails();
+        System.out.println("Status: " + (isRegular ? "Regular" : "Not Regular"));
+    }
+}
+
+class Student extends Person {
+    private String program;
+    private int yearLevel;
+
+    public void inputDetails(Scanner scanner) {
+        super.inputDetails(scanner);
+        System.out.print("Type enrolled program: ");
+        program = scanner.nextLine();
+        System.out.print("Type year level (1-4): ");
+        yearLevel = scanner.nextInt();
+    }
+
+    public void displayDetails() {
+        super.displayDetails();
+        System.out.println("Program: " + program);
+        System.out.println("Year Level: " + yearLevel);
+    }
+}
+
+public class CollegeList {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Press E for Employee, F for Faculty, or S for Student: ");
+        String choice = scanner.nextLine().toUpperCase();
+
+        switch (choice) {
+            case "E":
+                Employee employee = new Employee();
+                employee.inputDetails(scanner);
+                employee.displayDetails();
+                break;
+
+            case "F":
+                Faculty faculty = new Faculty();
+                faculty.inputDetails(scanner);
+                faculty.displayDetails();
+                break;
+
+            case "S":
+                Student student = new Student();
+                student.inputDetails(scanner);
+                student.displayDetails();
+                break;
+
+            default:
+                System.out.println("Invalid option selected.");
+                break;
+        }
+
+        scanner.close();
+    }
+}
